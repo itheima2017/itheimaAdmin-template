@@ -4,3 +4,6 @@
 [submodule "template/javaSpringBoot2"]
 	path = template/javaSpringBoot2
 	url = https://github.com/itheima2017/vue-element-admin-api-java-itheima
+[submodule "template/README"]
+	path = template/README
+	url = https://github.com/itheima2017/vue-element-admin-doc-itheima
