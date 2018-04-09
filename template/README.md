@@ -4,5 +4,5 @@
 --------------|------------------
 javaSpringBoot2 | java后端程序
 vueSPA        | vue前端SPA程序
-docAPI        | 通讯接口说明
-docREADME     | 技术帮助说明
+API        | 通讯接口说明
+README     | 技术帮助说明
