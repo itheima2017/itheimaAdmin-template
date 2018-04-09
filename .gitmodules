@@ -7,3 +7,6 @@
 [submodule "template/README"]
 	path = template/README
 	url = https://github.com/itheima2017/vue-element-admin-doc-itheima
+[submodule "template/API"]
+	path = template/API
+	url = https://github.com/itheima2017/vue-element-admin-api-java-itheima
