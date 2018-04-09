@@ -1,0 +1,3 @@
+[submodule "template/vueSPA"]
+	path = template/vueSPA
+	url = https://github.com/itheima2017/vue-element-admin-itheima
