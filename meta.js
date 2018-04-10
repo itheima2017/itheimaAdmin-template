@@ -130,11 +130,11 @@ module.exports = {
     "javaSpringBoot2/.mvn/**/*",
     "javaSpringBoot2/db/**/*",
     "javaSpringBoot2/src/main/java/**/*",
-    "API/**/*",
-    "README/**/*",
+    // "API/**/*",
+    // "README/**/*",
     "*"
   ],
-  complete: function(data, { chalk }) {
+  complete: async function(data, { chalk }) {
     const green = chalk.green
 
     sortDependencies(data, green)
@@ -142,9 +142,9 @@ module.exports = {
     // 安装 node_packages
     if (data.npminstall) {
       const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName, 'vueSPA')
-      installDependencies(cwd, data.npminstall, green)
+      await installDependencies(cwd, data.npminstall, green)
         .then(() => {
-          runLintFix(cwd, data, green)
+          return runLintFix(cwd, data, green)
         })
         .then(() => {
           console.log('npm包安装完成')
@@ -159,9 +159,9 @@ module.exports = {
       const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName, 'javaSpringBoot2', 'db')
       const args = [
         `-u${data.dbusername}`,
-        '-p${data.dbpassword}',
-        '-D${data.dbname}',
-        ' < init.sql'
+        `-p${data.dbpassword}`,
+        `-D${data.dbname}`,
+        ` < init.sql`
       ]
       installMysqlDB(cwd, data.npminstall, args, green)
         .then(() => {
