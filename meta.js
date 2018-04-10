@@ -130,8 +130,8 @@ module.exports = {
     "javaSpringBoot2/.mvn/**/*",
     "javaSpringBoot2/db/**/*",
     "javaSpringBoot2/src/main/java/**/*",
-    // "API/**/*",
-    // "README/**/*",
+    "API/**/*",
+    "README/**/*",
     "*"
   ],
   complete: async function(data, { chalk }) {
@@ -147,7 +147,6 @@ module.exports = {
           return runLintFix(cwd, data, green)
         })
         .then(() => {
-          console.log('npm包安装完成')
         })
         .catch(e => {
           console.log(chalk.red('Error:'), e)
@@ -163,9 +162,8 @@ module.exports = {
         `-D${data.dbname}`,
         ` < init.sql`
       ]
-      installMysqlDB(cwd, data.npminstall, args, green)
+      await installMysqlDB(cwd, args, green)
         .then(() => {
-          console.log('mysql数据初始完成')
         })
         .catch(e => {
           console.log(chalk.red('Error:'), e)

@@ -31,7 +31,7 @@ exports.installDependencies = function installDependencies(
   executable = 'npm',
   color
 ) {
-  console.log(`\n\n# ${color('安装前端项目依赖包 ...')}`)
+  console.log(`\n\n# ${color('安装前端依赖包 ...')}`)
   console.log('# ========================\n')
   return runCommand(executable, ['install'], {
     cwd,
@@ -45,13 +45,12 @@ exports.installDependencies = function installDependencies(
  */
 exports.installMysqlDB = function installMysqlDB(
   cwd,
-  executable = 'mysql',
   args,
   color
 ) {
-  console.log(`\n\n# ${color('安装前端项目依赖包 ...')}`)
+  console.log(`\n\n# ${color('初始化mysql数据 ...')}`)
   console.log('# ========================\n')
-  return runCommand(executable, args, {
+  return runCommand('mysql', args, {
     cwd,
   })
 }
@@ -86,16 +85,19 @@ exports.runLintFix = function runLintFix(cwd, data, color) {
  */
 exports.printMessage = function printMessage(data, { green, yellow }) {
   const message = `
-# ${green('项目安装完成 !')}
+# ${green('项目说明 !')}
 # ========================
 
-:
+## 目录
 
-前端项目 /vueSPA
-后端项目 /javaSpringBoot2
-  
-技术文档 http://research.itcast.cn/vue-element-admin-doc-itheima/
-API文档 http://research.itcast.cn/vue-element-admin-api-doc-itheima/_book/
+* 前端项目 /vueSPA
+* 后端项目 /javaSpringBoot2
+
+## 文档
+
+* 技术文档 http://research.itcast.cn/vue-element-admin-doc-itheima/
+* API文档 http://research.itcast.cn/vue-element-admin-api-doc-itheima/_book/
+
 `
   console.log(message)
 }
