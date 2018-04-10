@@ -140,6 +140,7 @@ module.exports = {
 
     let cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
     cwd = cwd + '/vueSPA'
+    console.log(cwd)
 
     if (data.npminstall) {
       installDependencies(cwd, data.npminstall, green)
