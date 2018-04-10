@@ -122,7 +122,7 @@ function runCommand(cmd, args, options) {
       args,
       Object.assign(
         {
-          cwd: process.cwd(),
+          // cwd: process.cwd(),
           stdio: 'inherit',
           shell: true,
         },
