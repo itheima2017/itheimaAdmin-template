@@ -138,7 +138,7 @@ module.exports = {
 
     sortDependencies(data, green)
 
-    const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
+    let cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
     cwd = path.join(cwd, 'vueSPA')
 
     if (data.npminstall) {
