@@ -6,6 +6,7 @@ const {
   installDependencies,
   runLintFix,
   printMessage,
+  installMysqlDB
 } = require('./utils')
 const pkg = require('./package.json')
 
@@ -82,13 +83,13 @@ module.exports = {
     dbinstall: {
       when: 'isNotTest',
       type: 'confirm',
-      message: '是否初始数据库安装 ?',
+      message: '初始数据库安装 ?',
     },
     npminstall: {
       when: 'isNotTest',
       type: 'list',
       message:
-        '现在就安装项目前端 npm 包吗? (recommended)',
+        '自动安装前端 npm 包吗? (推荐)',
       choices: [
         {
           name: 'Yes, use cnpm',
@@ -115,7 +116,7 @@ module.exports = {
   },
   filters: {
   },
-  "skipInterpolation": [
+  skipInterpolation: [
     "vueSPA/*.js",
     "vueSPA/*.babelrc",
     "vueSPA/*.editorconfig",
@@ -138,21 +139,39 @@ module.exports = {
 
     sortDependencies(data, green)
 
-    const cwd = path.join(process.cwd(), data.inPlace ? 'vueSPA' : data.destDirName + '/vueSPA')
-
+    // 安装 node_packages
     if (data.npminstall) {
+      const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName, 'vueSPA')
       installDependencies(cwd, data.npminstall, green)
         .then(() => {
-          return runLintFix(cwd, data, green)
+          runLintFix(cwd, data, green)
         })
         .then(() => {
-          printMessage(data, green)
+          console.log('npm包安装完成')
         })
         .catch(e => {
           console.log(chalk.red('Error:'), e)
         })
-    } else {
-      printMessage(data, chalk)
     }
+
+    // 安装 msql server
+    if (data.dbinstall) {
+      const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName, 'javaSpringBoot2', 'db')
+      const args = [
+        `-u${data.dbusername}`,
+        '-p${data.dbpassword}',
+        '-D${data.dbname}',
+        ' < init.sql'
+      ]
+      installMysqlDB(cwd, data.npminstall, args, green)
+        .then(() => {
+          console.log('mysql数据初始完成')
+        })
+        .catch(e => {
+          console.log(chalk.red('Error:'), e)
+        })
+    }
+    
+    printMessage(data, chalk)
   },
 }

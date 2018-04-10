@@ -12,6 +12,7 @@ const lintStyles = ['standard', 'airbnb']
 exports.sortDependencies = function sortDependencies(data) {
   const packageJsonFile = path.join(
     data.inPlace ? '' : data.destDirName,
+    'vueSPA',
     'package.json'
   )
   const packageJson = JSON.parse(fs.readFileSync(packageJsonFile))
@@ -33,6 +34,24 @@ exports.installDependencies = function installDependencies(
   console.log(`\n\n# ${color('安装前端项目依赖包 ...')}`)
   console.log('# ========================\n')
   return runCommand(executable, ['install'], {
+    cwd,
+  })
+}
+
+/**
+ * Runs `npm install` in the project directory
+ * @param {string} cwd Path of the created project directory
+ * @param {object} data Data from questionnaire
+ */
+exports.installMysqlDB = function installMysqlDB(
+  cwd,
+  executable = 'mysql',
+  args,
+  color
+) {
+  console.log(`\n\n# ${color('安装前端项目依赖包 ...')}`)
+  console.log('# ========================\n')
+  return runCommand(executable, args, {
     cwd,
   })
 }
@@ -67,19 +86,15 @@ exports.runLintFix = function runLintFix(cwd, data, color) {
  */
 exports.printMessage = function printMessage(data, { green, yellow }) {
   const message = `
-# ${green('Project initialization finished!')}
+# ${green('项目安装完成 !')}
 # ========================
 
-To get started:
+:
 
-  ${yellow(
-    `${data.inPlace ? '' : `cd ${data.destDirName}\n  `}${installMsg(
-      data
-    )}${lintMsg(data)}npm start`
-  )}
+前端项目 /vueSPA
+后端项目 /javaSpringBoot2
   
 技术文档 http://research.itcast.cn/vue-element-admin-doc-itheima/
-
 API文档 http://research.itcast.cn/vue-element-admin-api-doc-itheima/_book/
 `
   console.log(message)

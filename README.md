@@ -11,5 +11,5 @@ $ itheima init <template-name> <project-name>
 * 使用模板创建项目
 
 ```bash
-$ itheima init itheimaAdmin-template my-AdminProject
+$ itheima init itheimaAdmin-template my-admin
 ```
