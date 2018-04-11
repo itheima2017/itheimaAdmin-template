@@ -13,6 +13,15 @@ const lintStyles = ['standard', 'airbnb']
 exports.systemCheck = function systemCheck(
   cwd
 ) {
+  console.log(`\n\n# '环境要求 ...'`)
+  console.log('# ========================\n')
+
+  console.log(`* node >= 6.0.0`)
+  console.log(`* npm >= 3.0.0`)
+  console.log(`* java = 1.8`)
+  console.log(`* maven >= 3`)
+  console.log(`* mysql >= 5.3`)
+
   console.log(`\n\n# '系统自检 ...'`)
   console.log('# ========================\n')
   console.log(`> node 版本`)
