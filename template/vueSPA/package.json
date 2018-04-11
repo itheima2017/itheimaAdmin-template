@@ -1,8 +1,8 @@
 {
-  "name": "vue-element-admin-itheima",
+  "name": "{{name}}",
   "version": "1.0.0",
-  "description": "vue-element-admin 商用管理系统模板",
-  "author": "taoshiwei <taoshiwei@itcast.cn>",
+  "description": "{{description}}",
+  "author": "{{author}}",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
