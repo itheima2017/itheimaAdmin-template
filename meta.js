@@ -2,11 +2,13 @@ const path = require('path')
 const fs = require('fs')
 
 const {
+  systemCheck,
   sortDependencies,
   installDependencies,
   runLintFix,
   printMessage,
-  installMysqlDB
+  installMysqlDB,
+  installMaven
 } = require('./utils')
 const pkg = require('./package.json')
 
@@ -17,7 +19,11 @@ const { addTestAnswers } = require('./scenarios')
 module.exports = {
   metalsmith: {
     // When running tests for the template, this adds answers for the selected scenario
-    before: addTestAnswers
+    before: function(metalsmith, opts, helpers) {
+      const cwd = process.cwd()
+      systemCheck(cwd)
+      addTestAnswers(metalsmith, opts, helpers)
+    }
   },
   helpers: {
     if_or(v1, v2, options) {
@@ -45,12 +51,14 @@ module.exports = {
       type: 'string',
       required: false,
       message: '项目说明',
-      default: 'admin管理后台',
+      default: '黑马admin管理后台',
     },
     author: {
       when: 'isNotTest',
       type: 'string',
+      required: false,
       message: '作者',
+      default: 'yourname <yourname@xxxx.xxx>',
     },
     dbinstance: {
       when: 'isNotTest',
@@ -78,12 +86,17 @@ module.exports = {
       type: 'string',
       required: true,
       message: 'mysql密码',
-      default: '3flreaem37',
+      default: 'root',
     },
     dbinstall: {
       when: 'isNotTest',
       type: 'confirm',
       message: '初始数据库安装 ?',
+    },
+    mvninstall: {
+      when: 'isNotTest',
+      type: 'confirm',
+      message: 'meavn自动更新包 ?',
     },
     npminstall: {
       when: 'isNotTest',
@@ -128,16 +141,28 @@ module.exports = {
     "vueSPA/src/**/*.md",
     "javaSpringBoot2/*",
     "javaSpringBoot2/.mvn/**/*",
-    "javaSpringBoot2/db/**/*",
     "javaSpringBoot2/src/main/java/**/*",
-    "API/**/*",
-    "README/**/*",
     "*"
   ],
   complete: async function(data, { chalk }) {
     const green = chalk.green
 
     sortDependencies(data, green)
+
+    // maven 自动更新包
+    if (data.mvninstall) {
+      const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName, 'javaSpringBoot2')
+      const args = [
+        `clean`,
+        `package`
+      ]
+      await installMaven(cwd, args, green)
+        .then(() => {
+        })
+        .catch(e => {
+          console.log(chalk.red('Error:'), e)
+        })
+    }
 
     // 安装 node_packages
     if (data.npminstall) {

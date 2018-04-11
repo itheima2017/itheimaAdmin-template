@@ -1,6 +1,6 @@
 #创建数据库
-CREATE DATABASE IF NOT EXISTS vue_element_admin DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
-USE vue_element_admin;
+CREATE DATABASE IF NOT EXISTS {{dbname}} DEFAULT CHARSET utf8mb4 COLLATE utf8mb4_general_ci;
+USE {{dbname}};
 #创建表
 CREATE TABLE `pe_permission_group` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
