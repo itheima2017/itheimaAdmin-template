@@ -184,7 +184,6 @@ module.exports = {
       const args = [
         `-u${data.dbusername}`,
         `-p${data.dbpassword}`,
-        `-D${data.dbname}`,
         ` < init.sql`
       ]
       await installMysqlDB(cwd, args, green)
