@@ -5,14 +5,29 @@ export default {
     users: 'users',
     menus: 'menus',
     permissions: 'permissions',
-    logs: 'logs'
+    logs: 'logs',
+    example: 'example',
+    table: 'table',
+
+    list: 'list',
+    tableList: 'table list',
+    basicList: 'basic list',
+    cardList: 'card list',
+
+    form: 'form',
+    basicForm: 'basic form',
+    stepForm: 'step form',
+    advancedList: 'advanced form'
   },
   navbar: {
+    search: 'search',
     logOut: 'Log Out',
     dashboard: 'Dashboard',
     github: 'Github',
     screenfull: 'screenfull',
-    theme: 'theme'
+    theme: 'theme',
+    lang: 'i18n',
+    error: 'error log'
   },
   login: {
     title: 'itheima login',
@@ -39,6 +54,7 @@ export default {
     username: 'User',
     permissionNew: 'permissionNew',
     permissionUser: 'Permission',
+    imdsAi: 'Advanced interface authorization',
     avatar: 'Avatar',
     introduction: 'Introduction',
     paddword: 'paddWord',
@@ -48,6 +64,14 @@ export default {
     edit: 'Edit',
     delete: 'Delete',
     cancel: 'Cancel',
-    confirm: 'Confirm'
+    confirm: 'Confirm',
+    operationType: 'operationType',
+    operationDate: 'operationDate',
+    date: 'Date',
+    operator: 'operator',
+    results: 'results of enforcement',
+    describe: 'Pedagogical operation',
+    preserve: 'preserve',
+    signOut: 'sign out'
   }
 }
