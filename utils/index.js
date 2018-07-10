@@ -152,8 +152,8 @@ exports.printMessage = function printMessage(data, { green, yellow }) {
 
 ## 文档
 
-* 技术文档 http://research.itcast.cn/vue-element-admin-doc-itheima/
-* API文档 http://research.itcast.cn/vue-element-admin-api-doc-itheima/_book/
+* 技术文档 http://itheimaadmin.itcast.cn/book/help/
+* API文档 http://itheimaadmin.itcast.cn/book/api/_book/
 
 `
   console.log(message)
