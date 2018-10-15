@@ -32,7 +32,7 @@
 
 <script>
 import treeTable from '@/components/TreeTable/index.vue'
-import MenuAdd from './../components/menuAdd'
+import MenuAdd from './../components/menu-add'
 import { list, remove, detail, update, add } from '@/api/base/menus'
 let _this = []
 export default {
@@ -110,7 +110,12 @@ export default {
           }
           return newItem
         }
-        var changeAray = function(layer, oldArray) {
+        var makeLayer = function(layer, item) {
+          layer++
+          changeAray(layer, item)
+          layer--
+        }
+        function changeAray(layer, oldArray) {
           for (var i = 0; i < oldArray.length; i++) {
             newArray.push(makeNewItem(layer, oldArray[i]))
 
@@ -121,11 +126,6 @@ export default {
               makeLayer(layer, oldArray[i].points)
             }
           }
-        }
-        var makeLayer = function(layer, item) {
-          layer++
-          changeAray(layer, item)
-          layer--
         }
 
         var la = 0

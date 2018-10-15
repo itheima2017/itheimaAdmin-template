@@ -46,7 +46,8 @@ export default {
         create_date: '',
         title: '',
         permissions: []
-      }
+      },
+      curPermissions: []
     }
   },
   computed: {
@@ -153,10 +154,29 @@ export default {
     },
     // 表单提交
     handleAdd(object) {
+      this.parseN()
+      var curPerLenth = this.curPermissions.length
+      // console.log(`curPermissions: ${curPermissions}`)
+      if (curPerLenth === 0 && this.formBase.id) {
+        this.curPermissions = this.formBase.permissions
+      }
+      // console.log(`curPermissions: ${curPermissions}`)
+      if (!curPerLenth) {
+        this.$message({
+          showClose: true,
+          message: '请选择需要的权限及页面权限点',
+          type: 'error'
+        })
+        // return
+      } else {
+        this.dataFormSub(this.curPermissions)
+      }
+    },
+    parseN() {
       let curPermissions = []
       let nodesPath = []
       function parseNodes(nodes, findId) {
-        for (let it of nodes) {
+        nodes.map(function(it, index) {
           nodesPath.push(it)
           let isFind = false
           if (findId === it.id) {
@@ -173,17 +193,12 @@ export default {
           } else {
           }
           if (isFind) {
-            for (let item of nodesPath) {
-              if (curPermissions.indexOf(item.id) === -1) {
-                curPermissions.push(findId)
-              }
-            }
+            _this.nodeDate(nodesPath, curPermissions, findId)
             nodesPath = []
             return isFind
           }
           nodesPath.pop()
-          // return isFind
-        }
+        })
       }
       // console.log(this.$refs.treeMenu.getCheckedNodes())
       if (this.treeCheckedNodes.length === 0) {
@@ -195,45 +210,41 @@ export default {
         nodesPath = []
         parseNodes(this.PermissionGroupsmenu, it.id)
       }
-      // console.log(`curPermissions: ${curPermissions}`)
-      if (curPermissions.length === 0 && this.formBase.id) {
-        curPermissions = this.formBase.permissions
-      }
-      // console.log(`curPermissions: ${curPermissions}`)
-      if (!curPermissions.length) {
-        this.$message({
-          showClose: true,
-          message: '请选择需要的权限及页面权限点',
-          type: 'error'
-        })
-        // return
-      } else {
-        this.$refs['dataForm'].validate(valid => {
-          if (valid) {
-            this.$emit('handleCloseModal')
-            if (_this.formBase.id) {
-              let technologyTypes = []
-              var data = {
-                id: this.formBase.id,
-                title: this.formBase.title,
-                permissions: curPermissions
-              }
-              update(data).then(() => {
-                this.$emit('newDataes', this.formBase)
-              })
-            } else {
-              add({
-                title: this.formBase.title,
-                permissions: curPermissions
-              }).then(() => {
-                this.$emit('newDataes', this.formBase)
-              })
+      this.curPermissions = curPermissions
+    },
+    nodeDate(nodesPath, curPermissions, findId) {
+      nodesPath.map(function(item, index) {
+        if (curPermissions.indexOf(item.id) === -1) {
+          curPermissions.push(findId)
+        }
+      })
+    },
+    dataFormSub(curPermis) {
+      this.$refs['dataForm'].validate(valid => {
+        if (valid) {
+          this.$emit('handleCloseModal')
+          if (_this.formBase.id) {
+            let technologyTypes = []
+            var data = {
+              id: this.formBase.id,
+              title: this.formBase.title,
+              permissions: curPermis
             }
+            update(data).then(() => {
+              this.$emit('newDataes', this.formBase)
+            })
           } else {
-            this.$Message.error('*号为必填项!')
+            add({
+              title: this.formBase.title,
+              permissions: curPermis
+            }).then(() => {
+              this.$emit('newDataes', this.formBase)
+            })
           }
-        })
-      }
+        } else {
+          this.$Message.error('*号为必填项!')
+        }
+      })
     }
   },
   // 挂载结束
